@@ -1,4 +1,4 @@
-package de.fanero.gradle.plugin.nar
+package io.github.swedishborgie.gradle.plugin.nar
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
