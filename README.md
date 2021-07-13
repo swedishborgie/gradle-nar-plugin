@@ -1,25 +1,35 @@
 # gradle-nar-plugin
 
-A gradle plugin to create nar files for [Apache nifi](http://nifi.apache.org).
+A gradle plugin to create nar files for [Apache NiFi](http://nifi.apache.org).
+This is a fork of [sponiro/gradle-nar-plugin](https://github.com/sponiro/gradle-nar-plugin) since the
+original is no longer being maintained.
 
 ## Installation
-To use the plugin, add the bintray repository to your script and add the plugin dependency:
+To use the plugin, add a reference in your `build.gradle` and make sure mavenCentral() is your repositories:
 
 ```groovy
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url 'http://dl.bintray.com/sponiro/gradle-plugins'
-        }
-    }
-    dependencies {
-        classpath group: 'de.fanero.gradle.plugin.nar', name: 'gradle-nar-plugin', version: '0.4'
-    }
+plugins {
+    id 'io.github.swedishborgie.gradle.plugin.nar' version '0.5.0'
 }
 
-apply plugin: 'de.fanero.gradle.plugin.nar'
+repositories {
+    mavenCentral()
+}
 ```
+
+You also need to add a resolver to your `settings.gradle`:
+```groovy
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == 'io.github.swedishborgie.gradle.plugin') {
+                useModule("io.github.swedishborgie:gradle-nar-plugin:${requested.version}")
+            }
+        }
+    }
+}
+```
+
 ## Usage
 
 Run `gradle nar` to execute the nar task and create a nar archive.
